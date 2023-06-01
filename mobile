@@ -1033,7 +1033,7 @@ task.spawn(function()
    task.spawn(function()
        AddCoreScriptLocal("Topbar")
    end)
-
+game:GetService("Players").LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.JumpButton.Image == "rbxassetid://13616950810"
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 0, 107)
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
