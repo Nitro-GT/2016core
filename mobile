@@ -101,8 +101,7 @@ function ExistAndDelete(str)
        end
    end)
 end
- ewheel = game:GetService("CoreGui").RobloxGui.EmotesMenu
-escript = game:GetService("CoreGui").RobloxGui.Modules.Emote
+ ewheel = game:GetService("CoreGui").RobloxGui.ScriptWareiOSUI
 ewheel.Parent = workspace
 escript.Parent = workspace
 ExistAndDelete("RobloxGui")
