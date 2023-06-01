@@ -1038,11 +1038,23 @@ task.spawn(function()
    task.spawn(function()
        AddCoreScriptLocal("Topbar")
    end)
+local GameSettings = UserSettings().GameSettings
+local fullscreentext = script.Parent
+local function checkFullScreenMode()
+	local inFullscreen = GameSettings:InFullScreen()
+	if inFullscreen then
+	wait(0.1)
+		 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 1, -783)    
+	else
+	wait(0.1)
+	game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 1, -730)
+	end
+end
+checkFullScreenMode()
+GameSettings.FullscreenChanged:Connect(checkFullScreenMode)
 
-game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 1, -730)
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
-  
   -- SettingsScript
    local luaControlsSuccess, luaControlsFlagValue = pcall(function() return settings():GetFFlag("UseLuaCameraAndControl") end)
    
