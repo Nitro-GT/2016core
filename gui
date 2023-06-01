@@ -1,6 +1,9 @@
+
+
+wait(1)
 _G.DisplayNames = false
 _G.ForceBubbleChat = true
-
+_G.Fullscreen = false
 --[[
 
                                                                                                                                    
@@ -40,17 +43,7 @@ end
        if _G.ForceBubbleChat == true then
              game:GetService("Chat").BubbleChatEnabled = false
       -- game:GetService("Chat").LoadDefaultChat = false
-       	game.Players.PlayerAdded:connect(function(plr)
-		plr.Chatted:connect(function(msg)
-			game:GetService("Chat"):Chat(plr.Character.Head,msg,Enum.ChatColor.White)
-		end)
-	end)
- 
-	for i,v in pairs(game.Players:GetPlayers()) do
-		v.Chatted:connect(function(msg)
-			game:GetService("Chat"):Chat(v.Character.Head,msg,Enum.ChatColor.White)
-		end)
-	end
+
 	end
 if game:IsLoaded() ~= true then
    game.Loaded:Wait()
@@ -108,7 +101,10 @@ function ExistAndDelete(str)
        end
    end)
 end
-
+ ewheel = game:GetService("CoreGui").RobloxGui.EmotesMenu
+escript = game:GetService("CoreGui").RobloxGui.Modules.Emote
+ewheel.Parent = workspace
+escript.Parent = workspace
 ExistAndDelete("RobloxGui")
 ExistAndDelete("TeleportGui")
 ExistAndDelete("RobloxPromptGui")
@@ -1039,7 +1035,7 @@ task.spawn(function()
        AddCoreScriptLocal("Topbar")
    end)
 local GameSettings = UserSettings().GameSettings
-local fullscreentext = script.Parent
+
 local function checkFullScreenMode()
 	local inFullscreen = GameSettings:InFullScreen()
 	if inFullscreen then
@@ -1050,11 +1046,15 @@ local function checkFullScreenMode()
 	game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 1, -730)
 	end
 end
+
 checkFullScreenMode()
 GameSettings.FullscreenChanged:Connect(checkFullScreenMode)
 
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
+  ewheel.Parent =  game:GetService("CoreGui").CoreGui
+escript.Parent =  game:GetService("CoreGui").RobloxGui.Modules
+
   -- SettingsScript
    local luaControlsSuccess, luaControlsFlagValue = pcall(function() return settings():GetFFlag("UseLuaCameraAndControl") end)
    
@@ -1146,3 +1146,4 @@ GameSettings.FullscreenChanged:Connect(checkFullScreenMode)
     end)
    end
 end)
+
