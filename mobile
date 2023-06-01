@@ -102,7 +102,7 @@ function ExistAndDelete(str)
    end)
 end
  ewheel = game:GetService("CoreGui").RobloxGui.ScriptWareiOSUI
-ewheel.Parent = workspace
+ewheel.Parent = game:GetService("CoreGui").CoreGui
 
 ExistAndDelete("RobloxGui")
 ExistAndDelete("TeleportGui")
