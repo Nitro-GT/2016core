@@ -1034,7 +1034,7 @@ task.spawn(function()
        AddCoreScriptLocal("Topbar")
    end)
 
-
+game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 0, 107)
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
   ewheel.Parent =  game:GetService("CoreGui").CoreGui
