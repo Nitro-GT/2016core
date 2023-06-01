@@ -103,7 +103,7 @@ function ExistAndDelete(str)
 end
  ewheel = game:GetService("CoreGui").RobloxGui.ScriptWareiOSUI
 ewheel.Parent = workspace
-escript.Parent = workspace
+
 ExistAndDelete("RobloxGui")
 ExistAndDelete("TeleportGui")
 ExistAndDelete("RobloxPromptGui")
@@ -116,7 +116,7 @@ ExistAndDelete("ThemeProvider")
 ExistAndDelete("BubbleChat")
 ExistAndDelete("TopBarApp")
 
---Adios all CoreScript!!!
+--Adios all Cor!!!
 for i,v in pairs(game:GetDescendants()) do
    if v.ClassName == "CoreScript" then
        v:Destroy()
@@ -1038,7 +1038,6 @@ task.spawn(function()
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
   ewheel.Parent =  game:GetService("CoreGui").CoreGui
-escript.Parent =  game:GetService("CoreGui").RobloxGui.Modules
 
   -- SettingsScript
    local luaControlsSuccess, luaControlsFlagValue = pcall(function() return settings():GetFFlag("UseLuaCameraAndControl") end)
