@@ -102,7 +102,7 @@ function ExistAndDelete(str)
    end)
 end
  ewheel = game:GetService("CoreGui").RobloxGui.ScriptWareiOSUI
-ewheel.Parent = game:GetService("CoreGui").CoreGui
+ewheel.Parent = game:GetService("CoreGui")
 
 ExistAndDelete("RobloxGui")
 ExistAndDelete("TeleportGui")
@@ -1037,7 +1037,7 @@ game:GetService("Players").LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.Jump
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 0, 107)
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
-  ewheel.Parent =  game:GetService("CoreGui").CoreGui
+  ewheel.Parent =  game:GetService("CoreGui")
 
   -- SettingsScript
    local luaControlsSuccess, luaControlsFlagValue = pcall(function() return settings():GetFFlag("UseLuaCameraAndControl") end)
