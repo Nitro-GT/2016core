@@ -1,6 +1,4 @@
 
-
-wait(1)
 _G.DisplayNames = false
 _G.ForceBubbleChat = true
 _G.Fullscreen = false
@@ -28,16 +26,34 @@ _G.Fullscreen = false
 
 
 ]]
+local lastname = "z"
+local n = 0
 game.Players.PlayerAdded:Connect(function(plr)
    task.spawn(function()
 if _G.DisplayNames == true then
+if plr.DisplayName ~= lastname then
+n= 0
+lastname = plr.DisplayName
 plr.Name = plr.DisplayName
+else
+n=n+1
+lastname = plr.DisplayName
+plr.Name = plr.DisplayName.."(n)"
+end
 end
 end)
 end)
        for i,plr in pairs(game.Players:GetChildren()) do
-       if _G.DisplayNames == true then
+if _G.DisplayNames == true then
+if plr.DisplayName ~= lastname then
+n= 0
+lastname = plr.DisplayName
 plr.Name = plr.DisplayName
+else
+n=n+1
+lastname = plr.DisplayName
+plr.Name = plr.DisplayName.."(n)"
+end
 end
        end
        if _G.ForceBubbleChat == true then
@@ -128,11 +144,13 @@ end
 --Chat handler (soo people can see your messages) (YOU CAN EDIT THIS IF THE GAME YOUR PLAYING HAVE A CUSTOM CHAT)
 game.Players.LocalPlayer.Chatted:Connect(function(msg)
 if not string.find(msg, "/e ") then
+if not string.find(msg, "/w ") then
    if game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") ~= nil then
     if game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest") ~= nil then
     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest"):FireServer(msg, "All")
     end
    end
+end
 end
 end)
 
