@@ -1033,11 +1033,12 @@ task.spawn(function()
    task.spawn(function()
        AddCoreScriptLocal("Topbar")
    end)
-for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TouchGui.TouchControlFrame:GetDescendants()) do
+for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TouchGui:GetDescendants()) do
 if v:IsA("ImageLabel") and v.Parent ~= game:GetService("Players").LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.ThumbstickFrame then
 v.Image = "rbxassetid://13625382505"
 end
 end
+
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 0, 107)
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
