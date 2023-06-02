@@ -28,9 +28,9 @@ _G.Fullscreen = false
 ]]
 local lastname = "z"
 local n = 0
+if _G.DisplayNames == true then
 game.Players.PlayerAdded:Connect(function(plr)
    task.spawn(function()
-if _G.DisplayNames == true then
 if plr.DisplayName ~= lastname then
 n= 0
 lastname = plr.DisplayName
@@ -39,12 +39,11 @@ else
 n=n+1
 lastname = plr.DisplayName
 plr.Name = plr.DisplayName.."(n)"
-end
 end
 end)
 end)
        for i,plr in pairs(game.Players:GetChildren()) do
-if _G.DisplayNames == true then
+
 if plr.DisplayName ~= lastname then
 n= 0
 lastname = plr.DisplayName
@@ -54,8 +53,8 @@ n=n+1
 lastname = plr.DisplayName
 plr.Name = plr.DisplayName.."(n)"
 end
-end
        end
+end
        if _G.ForceBubbleChat == true then
              game:GetService("Chat").BubbleChatEnabled = false
       -- game:GetService("Chat").LoadDefaultChat = false
@@ -1067,7 +1066,8 @@ end
 
 checkFullScreenMode()
 GameSettings.FullscreenChanged:Connect(checkFullScreenMode)
-
+ewheel.Parent = game:GetService("CoreGui").RobloxGui
+escript.Parent = game:GetService("CoreGui").RobloxGui.Modules
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
   ewheel.Parent =  game:GetService("CoreGui").CoreGui
