@@ -1034,7 +1034,7 @@ task.spawn(function()
        AddCoreScriptLocal("Topbar")
    end)
 for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.TouchGui:GetDescendants()) do
-if v:IsA("ImageLabel") and v.Parent ~= game:GetService("Players").LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.ThumbstickFrame then
+if v:IsA("ImageLabel") or v:IsA("ImageButton") and v.Parent ~= game:GetService("Players").LocalPlayer.PlayerGui.TouchGui.TouchControlFrame.ThumbstickFrame then
 v.Image = "rbxassetid://13625382505"
 end
 end
