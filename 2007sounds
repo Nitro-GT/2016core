@@ -1,0 +1,104 @@
+-- util
+ game.Players.LocalPlayer.Character:BreakJoints()
+local plr =game.Players.LocalPlayer
+plr.CharacterAdded:Connect(function()
+wait(.5)
+
+function waitForChild(parent, childName)
+	while true do
+		local child = parent:findFirstChild(childName)
+		if child then
+			return child
+		end
+		parent.ChildAdded:wait()
+	end
+end
+
+local Figure = game.Players.LocalPlayer.Character
+local Head = waitForChild(Figure, "Head")
+local root = Figure.HumanoidRootPart
+for i,v in pairs(root:GetChildren()) do
+if v:IsA("Sound") then 
+v:Destroy()
+end
+end
+for i,v in pairs(Head:GetChildren()) do
+if v:IsA("Sound") then 
+v:Destroy()
+end
+end
+local Humanoid = waitForChild(Figure, "Humanoid")
+
+function newSound(id)
+	local sound = Instance.new("Sound")
+	sound.SoundId = id
+	sound.Parent = game.Players.LocalPlayer.Character.Head
+	sound.Volume = 2
+	return sound
+end
+
+-- declarations
+
+local sDied = newSound("rbxassetid://1237557124")
+local sFallingDown = newSound("rbxasset://sounds/splat.wav")
+local sGettingUp = newSound("rbxasset://sounds/hit.wav")
+local sFreeFalling = newSound("rbxassetid://12222200")
+local sJumping = newSound("rbxasset://sounds/button.wav")
+local sRunning = newSound("rbxasset://sounds/bfsl-minifigfoots1.mp3")
+sRunning.Looped = true
+
+
+-- functions
+
+function onDied()
+	sDied:play()
+end
+
+function onState(state, sound)
+	if state then
+		sound:Play()
+	else
+		sound:Pause()
+	end
+end
+
+function onSJ(state, sound)
+	if state then
+		sound:Play()
+	else
+	wait(0.25)
+		sound:Pause()
+	end
+end
+
+
+function onSFF(state, sound)
+wait(5)
+if Humanoid.FreeFalling == true then
+	if state then
+		sound:Play()
+	else
+		sound:Pause()
+	end
+end
+end
+
+function onRunning(speed)
+if not Humanoid.Jump then
+	if speed>0 then
+		sRunning:play()
+	else
+		sRunning:pause()
+	end
+	end
+end
+
+-- connect up
+
+Humanoid.Died:connect(onDied)
+Humanoid.Running:connect(onRunning)
+Humanoid.Jumping:connect(function(state) onSJ(state, sJumping) end)
+Humanoid.GettingUp:connect(function(state) onState(state, sGettingUp) end)
+Humanoid.FreeFalling:connect(function(state) onSFF(state, sFreeFalling) end)
+Humanoid.FallingDown:connect(function(state) onState(state, sFallingDown) end)
+end)
