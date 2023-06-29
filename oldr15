@@ -1,0 +1,46 @@
+_G.LoadCoreGui16 = true
+local c = game:GetService("Players").LocalPlayer.Character
+if  c.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+_G.real = false
+wait(.5)
+     local plr =game.Players.LocalPlayer
+     Player = game.Players.LocalPlayer
+c = Player.Character
+an = c.Animate
+  local a = game:GetObjects("rbxassetid://6816103163")[1]
+  a.Parent = c
+  an:ClearAllChildren()
+for i,v in pairs(a:GetChildren()) do
+v.Parent = an
+end
+
+	local Char = Player.Character
+	local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+
+	for i,v in next, Hum:GetPlayingAnimationTracks() do
+		v:Stop()
+	end
+	a:Destroy()
+plr.CharacterAdded:Connect(function()
+repeat wait() until plr.Character:FindFirstChild("Animate")
+plr.Character.Humanoid.AutoJumpEnabled = false
+Player = game.Players.LocalPlayer
+c = Player.Character
+an = c.Animate
+  local a = game:GetObjects("rbxassetid://6816103163")[1]
+  a.Parent = c
+  an:ClearAllChildren()
+for i,v in pairs(a:GetChildren()) do
+v.Parent = an
+end
+end)
+
+
+	local Char = Player.Character
+	local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+
+	for i,v in next, Hum:GetPlayingAnimationTracks() do
+		v:Stop()
+	end
+	a:Destroy()
+	end
