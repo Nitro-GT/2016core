@@ -1,7 +1,13 @@
-
+repeat wait() until game.Players.LocalPlayer
+ game.Players.LocalPlayer:GetMouse().Icon = "rbxassetid://13779882143"
+wait(.1)
+pcall(function()
+game.CoreGui.RobloxLoadingGUI:Destroy()
+end)
 _G.DisplayNames = false
 _G.ForceBubbleChat = true
 _G.Fullscreen = false
+_G.GuestMode = false
 --[[
 
                                                                                                                                    
@@ -19,7 +25,7 @@ _G.Fullscreen = false
 |   :    .'    ;   :    /     ;   |.'|   :  ';  :        |   :    /  `----'   ---'  |   :    ||   :    /  :  ,      .-./;  :    ; 
 ;   | .'        \   \ .'      '---'   \   \    /          \   \ .'                   \   \  /  \   \ .'    `--`----'    |  ,   /  
 `---'            `---`                 `---`--`            `---`                      `----'    `---`                    ---`-'   
-                                                                                                                                  
+                                                                                                                                 
 
 
 
@@ -55,6 +61,43 @@ plr.Name = plr.DisplayName.."(n)"
 end
        end
 end
+if _G.DisplayNames == false then
+pcall(function()
+game.Players.PlayerAdded:Connect(function(plr)
+plr.CharacterAdded:Connect(function(c)
+repeat wait() until c:FindFirstChild("Humanoid")
+c.Humanoid.DisplayName = c.Name
+end)
+end)
+
+    for i,plr in pairs(game.Players:GetChildren()) do
+v = plr
+repeat wait() until workspace:FindFirstChild(v.Name)
+repeat wait() until workspace:FindFirstChild(v.Name):FindFirstChild("Humanoid")
+workspace:FindFirstChild(v.Name):FindFirstChild("Humanoid").DisplayName = workspace:FindFirstChild(v.Name).Name
+v.CharacterAdded:Connect(function(c)
+repeat wait() until c:FindFirstChild("Humanoid")
+c.Humanoid.DisplayName = c.Name
+end)
+end
+end)
+end
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if v:IsA("Sound") then
+if v.SoundId == "rbxasset://sounds/uuhhh.mp3" then
+v.SoundId = "rbxassetid://1237557124"
+end
+end
+end
+workspace.DescendantAdded:Connect(function(q)
+if q:IsA("Sound") then
+if q.SoundId == "rbxasset://sounds/uuhhh.mp3" then
+q.SoundId = "rbxassetid://1237557124"
+q.Volume = q.Volume  *2
+end
+end
+
+end)
        if _G.ForceBubbleChat == true then
              game:GetService("Chat").BubbleChatEnabled = false
       -- game:GetService("Chat").LoadDefaultChat = false
@@ -116,10 +159,13 @@ function ExistAndDelete(str)
        end
    end)
 end
+pcall(function()
  ewheel = game:GetService("CoreGui").RobloxGui.EmotesMenu
 escript = game:GetService("CoreGui").RobloxGui.Modules.Emote
+
 ewheel.Parent = workspace
 escript.Parent = workspace
+end)
 ExistAndDelete("RobloxGui")
 ExistAndDelete("TeleportGui")
 ExistAndDelete("RobloxPromptGui")
@@ -159,7 +205,7 @@ if game.Players.LocalPlayer:FindFirstChild("PlayerGui") == nil then
 end
 
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Chat") == nil then
-   game.Players.LocalPlayer.PlayerGui:WaitForChild("Chat"):Destroy()
+   --game.Players.LocalPlayer.PlayerGui:WaitForChild("Chat"):Destroy()
 else
    game.Players.LocalPlayer.PlayerGui["Chat"]:Destroy()
 end
@@ -637,29 +683,6 @@ task.spawn(function()
     Parent = mainBackgroundContainer,
     }
    
-    local errorFrame = create 'Frame' {
-    Name = 'ErrorFrame',
-    BackgroundColor3 = COLORS.ERROR,
-    BorderSizePixel = 0,
-    Position = UDim2.new(0.25,0,0,0),
-    Size = UDim2.new(0.5, 0, 0, 80),
-    ZIndex = 8,
-    Visible = false,
-    Parent = screenGui,
-    }
-   
-    local errorText = create 'TextLabel' {
-    Name = "ErrorText",
-    BackgroundTransparency = 1,
-    Size = UDim2.new(1, 0, 1, 0),
-    Font = Enum.Font.SourceSansBold,
-    FontSize = Enum.FontSize.Size14,
-    TextWrapped = true,
-    TextColor3 = COLORS.WHITE,
-    Text = "",
-    ZIndex = 8,
-    Parent = errorFrame,
-    }
    
     while not game:GetService("CoreGui") do
     wait()
@@ -699,11 +722,38 @@ task.spawn(function()
     if setVerb then
     setVerb = false
     end
-   
+   local guiService = game:GetService("GuiService")
     if currScreenGui.BlackFrame:FindFirstChild("BackgroundTextureFrame") and currScreenGui.BlackFrame.BackgroundTextureFrame.AbsoluteSize ~= lastAbsoluteSize then
     lastAbsoluteSize = currScreenGui.BlackFrame.BackgroundTextureFrame.AbsoluteSize
     MainGui:tileBackgroundTexture(currScreenGui.BlackFrame.BackgroundTextureFrame)
     end
+
+
+    local errorFrame = create 'Frame' {
+    Name = 'ErrorFrame',
+    BackgroundColor3 = COLORS.ERROR,
+    BorderSizePixel = 0,
+    Position = UDim2.new(0.25,0,0,0),
+    Size = UDim2.new(0.5, 0, 0, 80),
+    ZIndex = 8,
+    Visible = false,
+    Parent = game:GetService("CoreGui").RobloxGui
+    }
+   
+
+   
+    local errorText = create 'TextLabel' {
+    Name = "ErrorText",
+    BackgroundTransparency = 1,
+    Size = UDim2.new(1, 0, 1, 0),
+    Font = Enum.Font.SourceSansBold,
+    FontSize = Enum.FontSize.Size14,
+    TextWrapped = true,
+    TextColor3 = COLORS.WHITE,
+    Text = "",
+    ZIndex = 8,
+    Parent = errorFrame,
+    }
    
     local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
     if infoFrame then
@@ -805,13 +855,13 @@ task.spawn(function()
    guiService.ErrorMessageChanged:connect(function()
     if guiService:GetErrorMessage() ~= '' then
     if isTenFootInterface then
-    currScreenGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
-    currScreenGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
-    currScreenGui.ErrorFrame.BackgroundColor3 = COLORS.BLACK
-    currScreenGui.ErrorFrame.BackgroundTransparency = 0.5
-    currScreenGui.ErrorFrame.ErrorText.FontSize = Enum.FontSize.Size36
-    currScreenGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
-    currScreenGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Size = UDim2.new(1, 0, 0, 144)
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Position = UDim2.new(0, 0, 0, 0)
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.BackgroundColor3 = COLORS.BLACK
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.BackgroundTransparency = 0.5
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.FontSize = Enum.FontSize.Size36
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.Position = UDim2.new(.3, 0, 0, 0)
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.Size = UDim2.new(.4, 0, 0, 144)
     if errorImage == nil then
     errorImage = Instance.new("ImageLabel")
     errorImage.Image = "rbxasset://textures/ui/ErrorIconSmall.png"
@@ -819,7 +869,7 @@ task.spawn(function()
     errorImage.Position = UDim2.new(0.228125, 0, 0, 32)
     errorImage.ZIndex = 9
     errorImage.BackgroundTransparency = 1
-    errorImage.Parent = currScreenGui.ErrorFrame
+    errorImage.Parent = errorFrame
     end
     -- we show a B button to kill game data model on console
     if not isTenFootInterface then
@@ -834,7 +884,7 @@ task.spawn(function()
     leaveGameButton.NextSelectionUp = leaveGameButton
     leaveGameButton.ZIndex = 9
     leaveGameButton.Position = UDim2.new(0.771875, 0, 0, 37)
-    leaveGameButton.Parent = currScreenGui.ErrorFrame
+    leaveGameButton.Parent = game:GetService("CoreGui").RobloxGui.ErrorFrame
     leaveGameTextLabel.FontSize = Enum.FontSize.Size36
     leaveGameTextLabel.ZIndex = 10
     game:GetService("GuiService").SelectedCoreObject = leaveGameButton
@@ -843,15 +893,20 @@ task.spawn(function()
     end
     end
     end
-    currScreenGui.ErrorFrame.ErrorText.Text = guiService:GetErrorMessage()
-    currScreenGui.ErrorFrame.Visible = true
+if game:GetService("GuiService"):GetErrorMessage() == "Lost connection to the game server, please reconnect" then
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.Text = "You have lost the connection to the game"
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Visible = true
+else
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.Text = game:GetService("GuiService"):GetErrorMessage()
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Visible = true
+end
     local blackFrame = currScreenGui:FindFirstChild('BlackFrame')
     if blackFrame then
     blackFrame.CloseButton.ImageTransparency = 0
     blackFrame.CloseButton.Active = true
     end
     else
-    currScreenGui.ErrorFrame.Visible = false
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Visible = false
     end
    end)
    
@@ -869,9 +924,14 @@ task.spawn(function()
     end
    end)
    
-   if guiService:GetErrorMessage() ~= '' then
-    currScreenGui.ErrorFrame.ErrorText.Text = guiService:GetErrorMessage()
-    currScreenGui.ErrorFrame.Visible = true
+   if game:GetService("GuiService"):GetErrorMessage() ~= '' then
+if game:GetService("GuiService"):GetErrorMessage() == "Lost connection to the game server, please reconnect" then
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.Text = "You have lost the connection to the game"
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Visible = true
+else
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.ErrorText.Text = game:GetService("GuiService"):GetErrorMessage()
+    game:GetService("CoreGui").RobloxGui.ErrorFrame.Visible = true
+end
    end
    
    
@@ -925,7 +985,9 @@ task.spawn(function()
     wait()
     end
     if blackFrame ~= nil then
+wait(2)
     stopListeningToRenderingStep()
+wait(2)
     blackFrame:Destroy()
     end
     end)
@@ -934,6 +996,7 @@ task.spawn(function()
    function destroyLoadingElements(instant)
     if not currScreenGui then return end
     if destroyedLoadingGui then return end
+wait(5)
     destroyedLoadingGui = true
    
     local guiChildren = currScreenGui:GetChildren()
@@ -1006,6 +1069,13 @@ task.spawn(function()
    UserInputServiceChangedConn = UIS.Changed:connect(onUserInputServiceChanged)
    onUserInputServiceChanged('VREnabled')
 end)
+pcall(function()
+game.Players.LocalPlayer.PlayerGui.TopbarPlus:Destroy()
+end)
+pcall(function()
+--wait(5)
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.TopBar.Position = UDim2.new(0,0,0,0)
+end)
 
 task.spawn(function()
    -- Creates all neccessary scripts for the gui on initial load, everything except build tools
@@ -1066,12 +1136,38 @@ end
 
 checkFullScreenMode()
 GameSettings.FullscreenChanged:Connect(checkFullScreenMode)
+pcall(function()
 ewheel.Parent = game:GetService("CoreGui").RobloxGui
 escript.Parent = game:GetService("CoreGui").RobloxGui.Modules
-  game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.HealthContainer.Visible = true
+end)
+if _G.GuestMode == true then
+game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Text = "Guest "..math.random(0,9999)
+game:GetService("CoreGui").RobloxGui.GuiRoot.ChatWindowContainer.Visible = false
+game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Size = UDim2.new(0,0,0,0)
+game:GetService("CoreGui").RobloxGui.TopBarContainer.Chat:Destroy()
+game:GetService("CoreGui").RobloxGui.TopBarContainer.Backpack.Position = UDim2.new(0,50,0,0)
+             game:GetService("Chat").BubbleChatEnabled = false
+      game:GetService("Chat").LoadDefaultChat = false
+end
   game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Position = UDim2.new(0, 7,0, -8)
-  ewheel.Parent =  game:GetService("CoreGui").CoreGui
+game:GetObjects("rbxassetid://13910227093")[1].Parent =  game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.TextTransparency = 0
+if game:GetService("Chat"):CanUserChatAsync(game.Players.LocalPlayer.UserId) == true and _G.GuestMode == false then
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.Position = UDim2.new(0, 7,0, 16)
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.Text = "Account: 13+"
+elseif _G.GuestMode == true then
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.Position = UDim2.new(0, 7,0, 16)
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.Text = "Account: <13"
+else
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.Position = UDim2.new(0, 7,0, 16)
+ game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.AccountType.Text = "Account: <13"
+end
+  game:GetService("CoreGui").RobloxGui.ResetOnSpawn = false
+pcall(function()
+  ewheel.Parent =  game:GetService("CoreGui").RobloxGui
+  game:GetService("CoreGui").RobloxGui.ResetOnSpawn = false
 escript.Parent =  game:GetService("CoreGui").RobloxGui.Modules
+end)
 
   -- SettingsScript
    local luaControlsSuccess, luaControlsFlagValue = pcall(function() return settings():GetFFlag("UseLuaCameraAndControl") end)
