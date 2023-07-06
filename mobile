@@ -23,23 +23,73 @@ _G.Fullscreen = false
 `---'            `---`                 `---`--`            `---`                      `----'    `---`                    ---`-'   
                                                                                                                                   
 
-
-
-
-
-]]
+if _G.DisplayNames == true then
 game.Players.PlayerAdded:Connect(function(plr)
    task.spawn(function()
-if _G.DisplayNames == true then
+if plr.DisplayName ~= lastname then
+n= 0
+lastname = plr.DisplayName
 plr.Name = plr.DisplayName
+else
+n=n+1
+lastname = plr.DisplayName
+plr.Name = plr.DisplayName.."(n)"
 end
 end)
 end)
        for i,plr in pairs(game.Players:GetChildren()) do
-       if _G.DisplayNames == true then
+
+if plr.DisplayName ~= lastname then
+n= 0
+lastname = plr.DisplayName
 plr.Name = plr.DisplayName
+else
+n=n+1
+lastname = plr.DisplayName
+plr.Name = plr.DisplayName.."(n)"
 end
        end
+end
+if _G.DisplayNames == false then
+pcall(function()
+game.Players.PlayerAdded:Connect(function(plr)
+plr.CharacterAdded:Connect(function(c)
+repeat wait() until c:FindFirstChild("Humanoid")
+c.Humanoid.DisplayName = c.Name
+end)
+end)
+
+    for i,plr in pairs(game.Players:GetChildren()) do
+v = plr
+repeat wait() until workspace:FindFirstChild(v.Name)
+repeat wait() until workspace:FindFirstChild(v.Name):FindFirstChild("Humanoid")
+workspace:FindFirstChild(v.Name):FindFirstChild("Humanoid").DisplayName = workspace:FindFirstChild(v.Name).Name
+v.CharacterAdded:Connect(function(c)
+repeat wait() until c:FindFirstChild("Humanoid")
+c.Humanoid.DisplayName = c.Name
+end)
+end
+end)
+end
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if v:IsA("Sound") then
+if v.SoundId == "rbxasset://sounds/uuhhh.mp3" then
+v.SoundId = "rbxassetid://1237557124"
+end
+end
+end
+workspace.DescendantAdded:Connect(function(q)
+if q:IsA("Sound") then
+if q.SoundId == "rbxasset://sounds/uuhhh.mp3" then
+q.SoundId = "rbxassetid://1237557124"
+q.Volume = q.Volume  *2
+end
+end
+
+end)
+
+
+
        if _G.ForceBubbleChat == true then
              game:GetService("Chat").BubbleChatEnabled = false
       -- game:GetService("Chat").LoadDefaultChat = false
