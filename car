@@ -1,0 +1,116 @@
+
+
+if workspace:FindFirstChild("Car") then
+workspace:FindFirstChild("Car"):Destroy()
+end
+
+	local car = game:GetObjects("rbxassetid://13985749099")[1]
+	car.Parent = workspace
+	local c = game.Players.LocalPlayer.Character
+	car:SetPrimaryPartCFrame(CFrame.new(c.Head.CFrame.X + 10,c.Head.CFrame.Y,c.Head.CFrame.Z))
+	local connect = nil 
+	local tweenserv = game:GetService("TweenService")
+	local twinfo = TweenInfo.new(0.5)
+	local seatpart = nil
+	c.Humanoid.Seated:Connect(function(active,seat)
+		if connect ~= nil then connect:Disconnect() connect = nil end
+		if seat == nil then 
+			if seatpart == nil then return end 
+			local at = nil
+			local height = -math.huge
+			for i,v in ipairs(seatpart:GetChildren()) do
+				if v.ClassName ~= "Attachment" then continue end
+				if v.WorldPosition.Y <= height then continue end
+				height = v.WorldPosition.Y
+				at = v
+			end
+			c.PrimaryPart.CFrame = at.WorldCFrame
+			seatpart = nil
+		else
+	
+			if seat.Name ~= "carseat" then return end
+			seatpart = seat
+			local cyBL = seat.Parent.WheelBL.CylindricalConstraint
+			local cyBR = seat.Parent.WheelBR.CylindricalConstraint
+			local atFL = seat.Parent.PrimaryPart.AttachmentFL
+			local atFR = seat.Parent.PrimaryPart.AttachmentFR
+	
+			local maxangvel = seat.MaxSpeed / (cyBR.Parent.Size.Y /2)
+	
+			connect = seat.Changed:Connect(function(prop)
+				if prop == "SteerFloat" then
+					local ori = Vector3.new(0,-seat.SteerFloat * seat.TurnSpeed,90)
+					tweenserv:Create(atFL,twinfo,{Orientation = ori}):Play()
+					tweenserv:Create(atFR,twinfo,{Orientation = ori}):Play()
+	
+	
+	
+				elseif prop == "ThrottleFloat" then
+					local torque = math.abs(seat.ThrottleFloat) * seat.Torque 
+					if torque == 0 then torque = 2000 end
+					local angvel = math.sign(seat.ThrottleFloat) * maxangvel
+					cyBL.MotorMaxTorque = torque
+					cyBR.MotorMaxTorque = torque		
+					cyBL.AngularVelocity = angvel
+					cyBR.AngularVelocity = angvel
+	
+	
+				end
+			end)
+		end
+	end)
+	local seatc = car.carseat
+	local fol = Instance.new("Folder",car)
+	seatc.WeldConstraint.Enabled = false
+	Instance.new("Part",fol)
+	 	for i,v in pairs(seatc:GetChildren()) do
+	 	v.Parent = fol.Part
+	 	end
+	seatc:Destroy()
+ 	for i,v in pairs(workspace:GetDescendants()) do
+ 	if v:IsA("VehicleSeat") and v ~= seat then
+ 	seatc = v
+ 	end
+ 	end
+ 	seatc:ClearAllChildren()
+ 	seatc.CFrame = CFrame.new(car.PrimaryPart.CFrame.X,car.PrimaryPart.CFrame.Y -1.5 ,car.PrimaryPart.CFrame.Z)
+ 	seatc.Parent = car
+ 	for i,v in pairs(fol.Part:GetChildren()) do
+	 	v.Parent = seatc
+	 	end
+ 	seatc.Name = "carseat"
+ 	seatc.WeldConstraint.Part0 = seatc
+ 	seatc.WeldConstraint.Enabled = true 
+ 	seatc.Torque = 10000
+ 	seatc.MaxSpeed = 200
+ 	seatc.TurnSpeed = 25
+ 	seatc.Disabled = false
+ 	seatc.HeadsUpDisplay = true
+	print(seatc.Name)
+	local car = seatc.Parent
+	local carm = car.PrimaryPart
+	local proxprompt = seatc.ProximityPrompt
+	local proxflip = seatc.Parent.PrimaryPart.Flip
+	seatc:GetPropertyChangedSignal("Occupant"):Connect(function()
+		if seatc.Occupant == nil then 
+			proxprompt.Enabled = true
+		else
+			proxprompt.Enabled = false
+		end
+	end)
+	
+	
+	proxprompt.Triggered:Connect(function(plr)
+		if plr == game.Players.LocalPlayer then
+			seatc:Sit(plr.Character.Humanoid)
+		end
+	end)
+	
+	
+	proxflip.Triggered:Connect(function(plr)
+		if plr == game.Players.LocalPlayer then
+			car:PivotTo(CFrame.new(car:GetPivot().Position.X,car:GetPivot().Position.Y+10,car:GetPivot().Position.Z))
+		end
+	end)
+
+
