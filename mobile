@@ -84,13 +84,6 @@ end
 --Needed for nostalgia, Filtering Disabled spoof
 local Workspace = game.Workspace
 local old
-old = hookmetamethod(game, "__index", newcclosure(function(Self, ...)
-   local args = ...
-   if Self == Workspace and args == "FilteringEnabled" then
-       return false
-   end
-   return old(Self, ...)
-end))
 
 --Script utils
 oldrequire = require
@@ -149,11 +142,6 @@ ExistAndDelete("BubbleChat")
 ExistAndDelete("TopBarApp")
 
 --Adios all Cor!!!
-for i,v in pairs(game:GetDescendants()) do
-   if v.ClassName == "CoreScript" then
-       v:Destroy()
-   end
-end
 
 
 --Chat handler (soo people can see your messages) (YOU CAN EDIT THIS IF THE GAME YOUR PLAYING HAVE A CUSTOM CHAT)
