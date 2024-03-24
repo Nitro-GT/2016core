@@ -184,7 +184,7 @@ if not string.find(msg, "/e ") then
 if not string.find(msg, "/w ") then
    if game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") ~= nil then
     if game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest") ~= nil then
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest"):FireServer(msg, "All")
+ --   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest"):FireServer(msg, "All")
     end
    end
 end
@@ -1118,10 +1118,10 @@ local function checkFullScreenMode()
 	local inFullscreen = GameSettings:InFullScreen()
 	if inFullscreen then
 	wait(0.1)
-		 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 1, -783)    
+		 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, .25,0)    
 	else
 	wait(0.1)
-	game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, 1, -730)
+	game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Position = UDim2.new(0, 0, .25,0)    
 	end
 end
 
