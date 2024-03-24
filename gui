@@ -1,5 +1,9 @@
 repeat wait() until game.Players.LocalPlayer
  game.Players.LocalPlayer:GetMouse().Icon = "rbxassetid://13779882143"
+_G.DisplayNames = false
+_G.ForceBubbleChat = true
+_G.Fullscreen = false        
+_G.GuestMode = false
 wait(.1)
 pcall(function()
 game.CoreGui.RobloxLoadingGUI:Destroy()
