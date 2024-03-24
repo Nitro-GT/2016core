@@ -270,7 +270,6 @@ task.spawn(function()
    -- Constants
    local PLACEID = game.PlaceId
    
-   local MPS = game:GetService('MarketplaceService')
    local UIS = game:GetService('UserInputService')
    local guiService = game:GetService("GuiService")
    local ContextActionService = game:GetService('ContextActionService')
@@ -411,7 +410,7 @@ task.spawn(function()
     -- load game asset info
     coroutine.resume(coroutine.create(function()
     local success, result = pcall(function()
-    GameAssetInfo = MPS:GetProductInfo(PLACEID)
+    GameAssetInfo = nil
     end)
     if not success then
     print("LoadingScript->InfoProvider:LoadAssets:", result)
