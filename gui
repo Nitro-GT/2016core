@@ -175,11 +175,7 @@ ExistAndDelete("BubbleChat")
 ExistAndDelete("TopBarApp")
 
 --Adios all CoreScript!!!
-for i,v in pairs(game:GetDescendants()) do
-   if v.ClassName == "CoreScript" then
-       v:Destroy()
-   end
-end
+
 
 
 --Chat handler (soo people can see your messages) (YOU CAN EDIT THIS IF THE GAME YOUR PLAYING HAVE A CUSTOM CHAT)
