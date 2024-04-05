@@ -179,19 +179,23 @@ ExistAndDelete("BubbleChat")
 ExistAndDelete("TopBarApp")
 
 --Adios all CoreScript!!!
-
+local oldmessage ="fucking hate doing this shit man"
 
 
 --Chat handler (soo people can see your messages) (YOU CAN EDIT THIS IF THE GAME YOUR PLAYING HAVE A CUSTOM CHAT)
 game.Players.LocalPlayer.Chatted:Connect(function(msg)
 print(msg)
+if msg ~= oldmessage then
 if not string.find(msg, "/e ") then
 if not string.find(msg, "/w ") then
    if game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") ~= nil then
     if game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest") ~= nil then
- -- game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest"):FireServer(msg, "All")
+  game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest"):FireServer(msg, "All")
+task.wait()
+	oldmessage = msg
     end
    end
+end
 end
 end
 end)
