@@ -1,40 +1,187 @@
+--NOTE: This version uses a hack to create a second part for shirt textures
+--		Mesh behavior may change to where this hack will become un-needed
+--		Let me know if you want me to create a toggle for this
+local Player = game.Players.LocalPlayer.Character
+local Character = Player.Character
 
-workspace.FallenPartsDestroyHeight = 0/0
+			
+			local R15Model = Instance.new("Model")
+			R15Model.Name = "R15Model"
+			R15Model.Parent = Character
+			
+			local function CreateLimb(Name,Color,Size,Transparency,ConnectToLimb,MotorName,C0,C1,MeshId)
+				local Part = Instance.new("Part")
+				Part.FormFactor = "Custom"
+				Part.Size = Size
+				Part.BrickColor = Color
+				Part.CanCollide = false
+				Part.Name = Name
+				Part.Transparency = (Transparency == 0.001 and 0 or Transparency)
+				Part.TopSurface = "Smooth"
+				Part.BottomSurface = "Smooth"
+				
+				local Motor = Instance.new("Motor6D")
+				Motor.C0 = C0
+				Motor.C1 = C1
+				Motor.Part0 = ConnectToLimb
+				Motor.Part1 = Part
+				Motor.Name = MotorName
+				Motor.MaxVelocity = 0.1
+				Motor.Parent = ConnectToLimb
+				
+				if MeshId then
+					local Mesh = Instance.new("SpecialMesh")
+					Mesh.MeshType = "FileMesh"
+					Mesh.MeshId = MeshId
+					Mesh.Scale = Vector3.new(0.99,0.99,0.99)
+					Mesh.Parent = Part
+				end
+				
+				if MeshId and Transparency == 0.001 then
+					local ShirtTexturePart = Instance.new("Part")
+					ShirtTexturePart.FormFactor = "Custom"
+					ShirtTexturePart.Size = Size
+					ShirtTexturePart.BrickColor = Color
+					ShirtTexturePart.CanCollide = false
+					ShirtTexturePart.Name = "ShirtTexturePart"
+					ShirtTexturePart.Transparency = Transparency
+					ShirtTexturePart.TopSurface = "Smooth"
+					ShirtTexturePart.BottomSurface = "Smooth"
+					
+					local Mesh = Instance.new("SpecialMesh")
+					Mesh.MeshType = "FileMesh"
+					Mesh.MeshId = MeshId
+					Mesh.Parent = ShirtTexturePart
+					
+					local Weld = Instance.new("Weld")
+					Weld.Part0 = Part
+					Weld.Part1 = ShirtTexturePart
+					Weld.Parent = ShirtTexturePart
+					
+					ShirtTexturePart.Parent = Part
+				end
+				Part.Parent = R15Model
+				return Part
+			end
+			
+			local HumanoidRootPart = CreateLimb("HumanoidRootPart",BrickColor.new("Medium stone grey"),Vector3.new(1,1,1),1,Character.HumanoidRootPart,"RootConnector",CFrame.new(),CFrame.new(0,0.7,0))
+			local TorsoLower = CreateLimb("TorsoLower",BrickColor.new("Bright blue"),Vector3.new(0.5,0.5,0.5),0.001,HumanoidRootPart,"Root",CFrame.new(0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, -1),CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366190286")
+			local TorsoUpper = CreateLimb("TorsoUpper",BrickColor.new("Bright blue"),Vector3.new(0.2,0.74,0.2),0.001,TorsoLower,"Waist",CFrame.new(0, 0.739968002, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),CFrame.new(0, -0.369984001, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366190087")
+			local Head = CreateLimb("Head",BrickColor.new("Bright yellow"),Vector3.new(1,1,1),0,TorsoUpper,"Neck",CFrame.new(0, 0.566236973, -0.0666489974, 1, 0, 0, 0, 0.993143976, 0.116898, 0, -0.116898, 0.993143976),CFrame.new(0, -0.285073012, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366190426")
+			local LeftArmUpper = CreateLimb("LeftArmUpper",BrickColor.new("Bright yellow"),Vector3.new(0.2,0.536,0.2),0.001,TorsoUpper,"LeftShoulder",CFrame.new(1.50177097, 0.220340997, 0, 0, -0.999044001, -0.0437170006, -1, 0, 0, 0, 0.0437170006, -0.999044001),CFrame.new(0, 0.336115986, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366186808")
+			local LeftArmLower = CreateLimb("LeftArmLower",BrickColor.new("Bright yellow"),Vector3.new(0.2,0.739,0.2),0.001,LeftArmUpper,"LeftElbow",CFrame.new(0, -0.267791986, 0, 1, 0, 0, 0, 0.998493016, -0.0548710003, 0, 0.0548710003, 0.998493016),CFrame.new(0, 0.369605988, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366187079")
+			local LeftHand = CreateLimb("LeftHand",BrickColor.new("Bright yellow"),Vector3.new(0.2,0.37,0.2),0.001,LeftArmLower,"LeftWrist",CFrame.new(0, -0.369605988, 0, 1, 0, 0, 0, -1, 0, 0, 0, -1),CFrame.new(0, -0.184802994, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366187331")
+			local RightArmUpper = CreateLimb("RightArmUpper",BrickColor.new("Bright yellow"),Vector3.new(0.2,0.536,0.2),0.001,TorsoUpper,"RightShoulder",CFrame.new(-1.50049305, 0.219521001, 0, 0, 0.999041975, -0.0437709987, -1, 0, 0, 0, 0.0437709987, 0.999041975),CFrame.new(0, 0.335705996, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366188623")
+			local RightArmLower = CreateLimb("RightArmLower",BrickColor.new("Bright yellow"),Vector3.new(0.2,0.739,0.2),0.001,RightArmUpper,"RightElbow",CFrame.new(0, -0.296110988, 0, 1, 0, 0, 0, 0.998767972, 0.0496239997, 0, -0.0496239997, 0.998767972),CFrame.new(0, 0.337754011, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366188798")
+			local RightHand = CreateLimb("RightHand",BrickColor.new("Bright yellow"),Vector3.new(),0.001,RightArmLower,"RightWrist",CFrame.new(0, -0.337754011, 0, 1, 0, 0, 0, -1, 0, 0, 0, -1),CFrame.new(0, -0.168877006, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366189081")
+			local LeftLegUpper = CreateLimb("LeftLegUpper",BrickColor.new("Br. yellowish green"),Vector3.new(0.2,0.784,0.2),0.001,TorsoLower,"LeftHip",CFrame.new(0.457044005, -0.495086014, 0, 1, 0, 0, 0, 1, -0.000100999998, 0, 0.000100999998, 1),CFrame.new(0, 0.388933986, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366187724")
+			local LeftLegLower = CreateLimb("LeftLegLower",BrickColor.new("Br. yellowish green"),Vector3.new(0.2,0.803,0.2),0.001,LeftLegUpper,"LeftKnee",CFrame.new(0, -0.388933986, 0, 1, 9.99999997e-007, 0, -9.99999997e-007, 0.991840005, -0.127486005, 0, 0.127486005, 0.991840005),CFrame.new(0, 0.401580006, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366188102")
+			local LeftFoot = CreateLimb("LeftFoot",BrickColor.new("Br. yellowish green"),Vector3.new(0.2,0.402,0.2),0.001,LeftLegLower,"LeftAnkle",CFrame.new(0, -0.401578993, 0, 1, 0, 0, 0, -1, 0, 0, 0, -1),CFrame.new(0, -0.200790003, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366188387")
+			local RightLegUpper = CreateLimb("RightLegUpper",BrickColor.new("Br. yellowish green"),Vector3.new(0.2,0.784,0.2),0.001,TorsoLower,"RightHip",CFrame.new(-0.451141, -0.498115987, 0, 1, 0, 0, 0, 0.999954998, 0.0095180003, 0, -0.0095180003, 0.999954998),CFrame.new(0, 0.391921997, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366189770")
+			local RightLegLower = CreateLimb("RightLegLower",BrickColor.new("Br. yellowish green"),Vector3.new(0.2,0.796,0.2),0.001,RightLegUpper,"RightKnee",CFrame.new(0, -0.391921997, 0, 1, 0, 0, 0, 0.992762029, -0.120096996, 0, 0.120096996, 0.992762029),CFrame.new(0, 0.39814499, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366189509")
+			local RightFoot = CreateLimb("RightFoot",BrickColor.new("Br. yellowish green"),Vector3.new(0.2, 0.398, 0.2),0.001,RightLegLower,"RightAnkle",CFrame.new(0, -0.39814499, 0, 1, 0, 0, 0, -1, 0, 0, 0, -1),CFrame.new(0, -0.199073002, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1),"http://www.roblox.com/asset/?id=366189977")
+			
+			--if Character:WaitForChild("Head"):WaitForChild("Mesh").MeshId ~= "" then
+			--	Head.MeshId = Character.Head.Mesh.MeshId
+			--end
+			
+			spawn(function() Character:WaitForChild("Animate").Disabled = false end)
+			script.NewAnimate:Clone().Parent = Character
+			
+			
+			local function Clear(Name,Alternative,ColorParts)
+				local Part = Character:WaitForChild(Name)
+				Part.Transparency = (Name == "Head" and 0.99 or 1)
+				local function ChildAdded(Ins)
+					delay(0.05,function()
+						if Ins.Name == "face" then
+							if Alternative:FindFirstChild("face") then Alternative:FindFirstChild("face"):Destroy() end
+							Ins.Parent = Alternative
+						elseif Ins:IsA("Motor6D") and string.sub(Ins.Name,1,5) ~= "Fake_" then
+							Ins.Name = "Fake_"..Ins.Name
+						elseif Ins.Name == "HeadWeld" then
+							delay(0.05,function()
+								Ins.Parent = Head
+								Ins.Part0 = Head
+								Ins.C1 = CFrame.new(0,-0.15,0.125) * Ins.C1 * CFrame.Angles(0,math.pi,0)
+							end)
+						elseif not Ins:IsA("Weld") then
+							Ins:Destroy()
+						end
+					end)
+				end
+				for _,Sub in pairs(Part:GetChildren()) do
+					ChildAdded(Sub)
+				end
+				Part.ChildAdded:connect(ChildAdded)
+				
+				local function Color()
+					for _,Sub in pairs(ColorParts) do
+						Sub.BrickColor = Part.BrickColor
+						local TexturePart = Sub:FindFirstChild("ShirtTexturePart")
+						if TexturePart then
+							TexturePart.BrickColor = Part.BrickColor
+						end
+					end
+				end
+				Color()
+				Part.Changed:connect(Color)
+			end
+			
+			for i,v in pairs(Character:GetDescendants()) do
+				if v:IsA("Accessory") then
+					
+			v:Destroy()
+				end
+			end
+			
+			Clear("HumanoidRootPart",HumanoidRootPart,{HumanoidRootPart})
+			Clear("Head",Head,{Head})
+			Clear("Torso",nil,{TorsoLower,TorsoUpper})
+			Clear("Left Arm",nil,{LeftArmLower,LeftArmUpper,LeftHand})
+			Clear("Right Arm",nil,{RightArmLower,RightArmUpper,RightHand})
+			Clear("Left Leg",nil,{LeftLegLower,LeftLegUpper,LeftFoot})
+			Clear("Right Leg",nil,{RightLegLower,RightLegUpper,RightFoot})
+			
+			local ShirtUsed = false
+			local function ChildAdded(Ins)
+				if Ins:IsA("Hat") and string.sub(Ins.Name,1,7) ~= "Scaled_" then
+					delay(0.05,function()
+						local Mesh = Ins:WaitForChild("Handle"):WaitForChild("Mesh")
+						Ins.AttachmentPos = Ins.AttachmentPos 
+						Mesh.Scale = Mesh.Scale
+						Ins.Name = "Scaled_"..Ins.Name
+					end)
+				elseif Ins:IsA("Shirt") then
+					ShirtUsed = true
+					TorsoLower.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					TorsoUpper.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					LeftArmLower.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					LeftArmUpper.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					LeftHand.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					RightArmLower.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					RightArmUpper.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+					RightHand.ShirtTexturePart.Mesh.TextureId = Ins.ShirtTemplate
+				elseif Ins:IsA("Pants") then
+					LeftLegUpper.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					LeftLegLower.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					LeftFoot.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					RightLegUpper.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					RightLegLower.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					RightFoot.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					if ShirtUsed ~= true then
+						TorsoLower.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+						TorsoUpper.ShirtTexturePart.Mesh.TextureId = Ins.PantsTemplate
+					end
+				end
+			end
+		
+			
+			for _,Sub in pairs(Character:GetChildren()) do
+				ChildAdded(Sub)
+			end
 
-Connection = game.Workspace.DescendantAdded:Connect(function(c)
-    if c.Name == "Animate" then
-        c.Disabled=false        
-    end
-end)
 
-repeat wait() until game.Players.LocalPlayer.Character
-Char = game.Players.LocalPlayer.Character
-Died = game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
-    Connection:Disconnect()
-    Died:Disconnect()
-end)
-
-wait(.1)
-
-function waitForChild(parent, childName)
-local child = parent:findFirstChild(childName)
-if child then return child end
-while true do
-    child = parent.ChildAdded:wait()
-    if child.Name==childName then return child end
-end
-end
-
-local c = game:GetService("Players").LocalPlayer.Character
-c.Archivable = true
-local char =  game:GetObjects("rbxassetid://9818017025")[1]
-char.Parent = workspace
-char.Humanoid:MoveTo(c.HumanoidRootPart.Position)
-c.HumanoidRootPart.Anchored = false
-char.HumanoidRootPart.Anchored = false
-
-
-game.Players.LocalPlayer.Character=char
 
 
 
@@ -45,7 +192,7 @@ workspace.Camera.CameraSubject = char.Humanoid
 char.Humanoid.Died:Connect(function()
 local plr = game.Players.LocalPlayer
    plr.Character = c
-c.Humanoid.Health = 0
+c.Humanoid:Destroy()
 wait(game.Players.RespawnTime)
 char:Destroy()
 end)
