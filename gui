@@ -1161,6 +1161,7 @@ escript.Parent = game:GetService("CoreGui").RobloxGui.Modules
 end)
 if _G.GuestMode == true then
 game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Text = "Guest "..gn
+game:GetService("CoreGui").RobloxGui.TopBarContainer.ChatVisible:Destroy()
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatWindowContainer.Visible = false
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Size = UDim2.new(0,0,0,0)
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer:Destroy()
