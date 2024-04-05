@@ -86,7 +86,7 @@ local Character = Player.Character
 			--end
 			
 			spawn(function() Character:WaitForChild("Animate").Disabled = false end)
-			script.NewAnimate:Clone().Parent = Character
+	
 			
 			
 			local function Clear(Name,Alternative,ColorParts)
@@ -186,7 +186,7 @@ local Character = Player.Character
 
 
 
-
+local char = Character
 c.Humanoid.Animator.Parent = char.Humanoid
 workspace.Camera.CameraSubject = char.Humanoid
 char.Humanoid.Died:Connect(function()
@@ -209,7 +209,7 @@ function waitForChild(parent, childName)
 end
 
 
-local l__Parent__3 = game.Players.LocalPlayer.Character
+local l__Parent__3 = Character
 local v4 = waitForChild(l__Parent__3, "Humanoid");
 math.randomseed(tick());
 local u1 = {};
