@@ -189,8 +189,9 @@ if not string.find(msg, "/e ") then
 if not string.find(msg, "/w ") then
    if game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") ~= nil then
     if game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest") ~= nil then
+ -- game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents:FindFirstChild("SayMessageRequest"):FireServer(msg, "All")
+    end
    end
-end
 end
 end
 end)
@@ -1255,4 +1256,3 @@ end)
     end)
    end
 end)
-
