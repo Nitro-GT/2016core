@@ -93,7 +93,6 @@ pcall(function()
 game.Players.LocalPlayer.Name = "Guest "..gn
 end)
 end
-pcall(function()
 for i,v in pairs(game.Workspace:GetDescendants()) do
 if v:IsA("Sound") then
 if v.SoundId == "rbxasset://sounds/uuhhh.mp3" then
