@@ -32,12 +32,6 @@ char.Parent = workspace
 char.Humanoid:MoveTo(c.HumanoidRootPart.Position)
 c.HumanoidRootPart.Anchored = false
 char.HumanoidRootPart.Anchored = false
-    for _,child in pairs(char:GetDescendants()) do
-        if child:IsA("BasePart")  then
-  child.Transparency = 1
-        end
-    end
-c.Parent = char
 
 
 game.Players.LocalPlayer.Character=char
@@ -51,7 +45,7 @@ workspace.Camera.CameraSubject = char.Humanoid
 char.Humanoid.Died:Connect(function()
 local plr = game.Players.LocalPlayer
    plr.Character = c
-c.Humanoid:Destroy()
+c.Humanoid.Health = 0
 wait(game.Players.RespawnTime)
 char:Destroy()
 end)
