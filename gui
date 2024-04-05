@@ -3,7 +3,7 @@ repeat wait() until game.Players.LocalPlayer
 _G.DisplayNames = false
 _G.ForceBubbleChat = true
 _G.Fullscreen = false        
-_G.GuestMode = false
+--_G.GuestMode = false
 wait(.1)
 pcall(function()
 game.CoreGui.RobloxLoadingGUI:Destroy()
