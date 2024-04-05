@@ -179,6 +179,13 @@ ExistAndDelete("BubbleChat")
 ExistAndDelete("TopBarApp")
 
 --Adios all CoreScript!!!
+for i,v in pairs(game["Script Context"]:GetDescendants()) do
+   if string.find(v.ClassName,"Script") and v.ClassName ~= "ModuleScript" and v.ClassName ~= "Script" and v.ClassName ~="LocalScript" then
+       pcall(function()
+v:Destroy()
+end)
+   end
+end
 local oldmessage ="fucking hate doing this shit man"
 
 
