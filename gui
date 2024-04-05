@@ -1,6 +1,6 @@
 repeat wait() until game.Players.LocalPlayer
  game.Players.LocalPlayer:GetMouse().Icon = "rbxassetid://13779882143"
-_G.DisplayNames = false
+_G.DisplayNames = true
 _G.ForceBubbleChat = true
 _G.Fullscreen = false        
 _G.GuestMode = false
@@ -32,6 +32,11 @@ end)
 
 
 ]]
+pcall(function()
+game.CoreGui.DeltaIcon.ImageButton:ClearAllChildren()
+game.CoreGui.DeltaIcon.ImageButton.Image = nil
+game.CoreGui.DeltaIcon.ImageButton.BackgroundTransparency = 1
+end)
 local lastname = "z"
 local n = 0
 if _G.DisplayNames == true then
