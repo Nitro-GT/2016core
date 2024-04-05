@@ -39,6 +39,7 @@ game.CoreGui.DeltaIcon.ImageButton.BackgroundTransparency = 1
 end)
 local lastname = "z"
 local n = 0
+local gn = math.random(0,9999)
 if _G.DisplayNames == true then
 game.Players.PlayerAdded:Connect(function(plr)
    task.spawn(function()
@@ -87,6 +88,12 @@ end)
 end
 end)
 end
+if _G.GuestMode == true then
+pcall(function()
+game.Players.LocalPlayer.Name = "Guest "..gn
+end)
+end
+pcall(function()
 for i,v in pairs(game.Workspace:GetDescendants()) do
 if v:IsA("Sound") then
 if v.SoundId == "rbxasset://sounds/uuhhh.mp3" then
@@ -1153,10 +1160,12 @@ ewheel.Parent = game:GetService("CoreGui").RobloxGui
 escript.Parent = game:GetService("CoreGui").RobloxGui.Modules
 end)
 if _G.GuestMode == true then
-game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Text = "Guest "..math.random(0,9999)
+game:GetService("CoreGui").RobloxGui.TopBarContainer.NameHealthContainer.Username.Text = "Guest "..gn
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatWindowContainer.Visible = false
 game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer.Size = UDim2.new(0,0,0,0)
+game:GetService("CoreGui").RobloxGui.GuiRoot.ChatBarContainer:Destroy()
 game:GetService("CoreGui").RobloxGui.TopBarContainer.Chat:Destroy()
+game:GetService("CoreGui").RobloxGui.GuiRoot.ChatWindowContainer:Destroy()
 game:GetService("CoreGui").RobloxGui.TopBarContainer.Backpack.Position = UDim2.new(0,50,0,0)
              game:GetService("Chat").BubbleChatEnabled = false
       game:GetService("Chat").LoadDefaultChat = false
