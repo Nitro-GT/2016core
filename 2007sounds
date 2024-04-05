@@ -1,7 +1,7 @@
 --NOTE: This version uses a hack to create a second part for shirt textures
 --		Mesh behavior may change to where this hack will become un-needed
 --		Let me know if you want me to create a toggle for this
-local Player = game.Players.LocalPlayer.Character
+local Player = game.Players.LocalPlayer
 local Character = Player.Character
 
 			
