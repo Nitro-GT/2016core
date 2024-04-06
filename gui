@@ -1393,6 +1393,45 @@ for v,i in pairs(workspace:GetDescendants()) do
 	end
 end
 
+local Lighting = game.Lighting
+local RunService = game:GetService("RunService")
+local RestrictedLighting = {
+		["EnvironmentDiffuseScale"] = 0,
+		["EnvironmentSpecularScale"] = 0,
+		["ExposureCompensation"] = 0
+	}
+	local RestrictedEffects = {
+		"DepthOfFieldEffect",
+		"Atmosphere"
+	}
+
+	local function RemoveEffect(effect)
+		if table.find(RestrictedEffects, effect.ClassName) then
+			RunService.RenderStepped:Wait()
+			effect:Destroy()
+		end
+	end
+
+	sethiddenproperty(Lighting, "Technology", Enum.Technology.Compatibility)
+
+	for property, value in pairs(RestrictedLighting) do
+		Lighting[property] = value
+	end
+
+	for _, effects in pairs(Lighting:GetDescendants()) do
+		RemoveEffect(effects)
+	end
+
+	Lighting.DescendantAdded:Connect(RemoveEffect)
+
+	Lighting.Changed:Connect(function(property)
+		local Property = RestrictedLighting[property]
+
+		if Property then
+			Lighting[property] = Property
+		end
+	end)
+
   -- SettingsScript
    local luaControlsSuccess, luaControlsFlagValue = pcall(function() return settings():GetFFlag("UseLuaCameraAndControl") end)
    
