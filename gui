@@ -109,6 +109,22 @@ end
 end
 
 end)
+
+	for v,i in pairs(workspace:GetDescendants()) do
+		if i:IsA("Hat") or i:IsA("Accessory") then
+			if i:FindFirstChild("Handle") then
+				i.Handle.Material = Enum.Material.SmoothPlastic
+			end
+		end
+	end
+	--
+	workspace.DescendantAdded:Connect(function(i)
+		if i:IsA("Hat") or i:IsA("Accessory") then
+			if i:FindFirstChild("Handle") then
+				i.Handle.Material = Enum.Material.SmoothPlastic
+			end
+		end
+	end)
        if _G.ForceBubbleChat == true then
              game:GetService("Chat").BubbleChatEnabled = false
       -- game:GetService("Chat").LoadDefaultChat = false
