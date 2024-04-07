@@ -4,29 +4,31 @@ _G.DisplayNames = false
 _G.ForceBubbleChat = true
 _G.Fullscreen = false        
 --_G.GuestMode = false
+_G.R6 = false
 wait(.1)
 pcall(function()
 game.CoreGui.RobloxLoadingGUI:Destroy()
 end)
 --[[
 
-                                                                                                                                   
-                                                                                                                                  
-      ,----,     ,----..        ,---,                      ,----..                              ,----..                           
-    .'   .' \   /   /   \    ,`--.' |    ,---.            /   /   \                            /   /   \                  ,--,    
-  ,----,'    | /   .     :  /    /  :   /     \          |   :     :  ,---.    __  ,-.        |   :     :          ,--, ,--.'|    
-  |    :  .  ;.   /   ;.  \:    |.' '  /    / '          .   |  ;. / '   ,'\ ,' ,'/ /|        .   |  ;. /        ,'_ /| |  |,     
-  ;    |.'  /.   ;   /  ` ;`----':  | .    ' /           .   ; /--` /   /   |'  | |' | ,---.  .   ; /--`    .--. |  | : `--'_     
-  `----'/  ; ;   |  ; \ ; |   '   ' ;'    / ;            ;   | ;   .   ; ,. :|  |   ,'/     \ ;   | ;  __ ,'_ /| :  . | ,' ,'|    
-    /  ;  /  |   :  | ; | '   |   | ||   :  \            |   : |   '   | |: :'  :  / /    /  ||   : |.' .'|  ' | |  . . '  | |    
-   ;  /  /-, .   |  ' ' ' :   '   : ;;   |   ``.         .   | '___'   | .; :|  | ' .    ' / |.   | '_.' :|  | ' |  | | |  | :    
-  /  /  /.`| '   ;  \; /  |   |   | ''   ;      \        '   ; : .'|   :    |;  : | '   ;   /|'   ; : \  |:  | : ;  ; | '  : |__  
-./__;      :  \   \  ',  /    '   : |'   |  .\  |        '   | '/  :\   \  / |  , ; '   |  / |'   | '/  .''  :  `--'   \|  | '.'| 
-|   :    .'    ;   :    /     ;   |.'|   :  ';  :        |   :    /  `----'   ---'  |   :    ||   :    /  :  ,      .-./;  :    ; 
-;   | .'        \   \ .'      '---'   \   \    /          \   \ .'                   \   \  /  \   \ .'    `--`----'    |  ,   /  
-`---'            `---`                 `---`--`            `---`                      `----'    `---`                    ---`-'   
-                                                                                                                                 
-
+                                                                               
+                                                                              
+                                                                                                      
+                                                                                                      
+      ,----,     ,----..        ,---,                                                                 
+    .'   .' \   /   /   \    ,`--.' |    ,---.             ,--,             .--.,                     
+  ,----,'    | /   .     :  /    /  :   /     \          ,--.'|           ,--.'  \                    
+  |    :  .  ;.   /   ;.  \:    |.' '  /    / '          |  |,            |  | /\/                    
+  ;    |.'  /.   ;   /  ` ;`----':  | .    ' /           `--'_            :  : :                .--,  
+  `----'/  ; ;   |  ; \ ; |   '   ' ;'    / ;            ,' ,'|           :  | |-,            /_ ./|  
+    /  ;  /  |   :  | ; | '   |   | ||   :  \            '  | |           |  : :/|         , ' , ' :  
+   ;  /  /-, .   |  ' ' ' :   '   : ;;   |   ``.         |  | :           |  |  .'        /___/ \: |  
+  /  /  /.`| '   ;  \; /  |   |   | ''   ;      \        '  : |__         '  : '           .  \  ' |  
+./__;      :  \   \  ',  /    '   : |'   |  .\  |        |  | '.'|        |  | |            \  ;   :  
+|   :    .'    ;   :    /     ;   |.'|   :  ';  :        ;  :    ;        |  : \             \  \  ;  
+;   | .'        \   \ .'      '---'   \   \    /         |  ,   /         |  |,'              :  \  \ 
+`---'            `---`                 `---`--`           ---`-'          `--'                 \  ' ; 
+                                                                                                `--`  
 
 
 
@@ -37,6 +39,8 @@ game.CoreGui.DeltaIcon.ImageButton:ClearAllChildren()
 game.CoreGui.DeltaIcon.ImageButton.Image = "rbxassetid://0"
 game.CoreGui.DeltaIcon.ImageButton.BackgroundTransparency = 1
 end)
+settings().Rendering.QualityLevel = 2
+Instance.new("Humanoid",workspace)
 local lastname = "z"
 local n = 0
 local gn = math.random(0,9999)
@@ -1112,7 +1116,7 @@ pcall(function()
 --wait(5)
 game:GetService("Players").LocalPlayer.PlayerGui.MainGui.TopBar.Position = UDim2.new(0,0,0,0)
 end)
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nitro-GT/2016ify/main/mouse2"))()
 task.spawn(function()
    -- Creates all neccessary scripts for the gui on initial load, everything except build tools
    -- Created by Ben T. 10/29/10
@@ -1213,7 +1217,7 @@ local R, G, B = 0.392157, 0.392157, 0.392157
 local function createStuds(part, surfaceType)
 	if part:IsA("BasePart") and not part:IsA("Terrain") then
 		if surfaceType == "Studs" then
-			if not part.Parent:FindFirstChild("Humanoid") and not string.find(part.Name,"Arm") and part.Name ~= "Torso"   and not string.find(part.Name,"Leg") then
+			if not part.Parent:FindFirstChild("Humanoid") and not string.find(part.Name,"Arm") and part.Name ~= "Torso"  and not string.find(part.Name,"Leg") or part.Parent == workspace then
 				if not part.Parent:FindFirstChild("StudTexture") then
 					if part.Material == Enum.Material.Plastic then
 						-- Top
@@ -1287,7 +1291,7 @@ local function createStuds(part, surfaceType)
 			end
 		end
 		if surfaceType == "Universal" then
-			if not part.Parent:FindFirstChild("Humanoid") then
+			if not part.Parent:FindFirstChild("Humanoid") or part.Parent == workspace then
 				if not part.Parent:FindFirstChild("UniversalTexture") then
 					if part.Material == Enum.Material.Plastic then
 						-- Top
@@ -1392,6 +1396,36 @@ for v,i in pairs(workspace:GetDescendants()) do
 		linkChangedFunc(i)
 	end
 end
+
+if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").RigType  == Enum.HumanoidRigType.R15 then
+task.wait(.25)
+Player = game.Players.LocalPlayer
+c = Player.Character
+an = c.Animate
+  local a = game:GetObjects("rbxassetid://6816103163")[1]
+  a.Parent = c
+  for i,v in pairs(an:GetChildren()) do
+if v.Name ~= "PlayEmote" then
+v:Destroy()
+end
+end
+end
+game.Players.LocalPlayer.CharacterAdded:Connect(function(c)
+task.wait(.2)
+if c:WaitForChild("Humanoid").RigType == Enum.HumanoidRigType.R15 then
+task.wait(.25)
+Player = game.Players.LocalPlayer
+c = Player.Character
+an = c:WaitForChild("Animate")
+  local a = game:GetObjects("rbxassetid://6816103163")[1]
+  a.Parent = c
+  for i,v in pairs(an:GetChildren()) do
+if v.Name ~= "PlayEmote" then
+v:Destroy()
+end
+end
+end
+end)
 
 local Lighting = game.Lighting
 local RunService = game:GetService("RunService")
